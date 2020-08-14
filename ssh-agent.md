@@ -1,6 +1,6 @@
 # ssh-agents 
 
-I kept getting permission error (private) even though I set up my public/private keys correct. 
+I kept getting permission error (private) even though I set up my public/private keys correctly. 
 
 Turns out that my ssh-agent did not have any identities linked. 
 
@@ -10,9 +10,9 @@ Get ssh-agent to start
 ``` 
 eval `ssh-agent`
 ```
-This should return a `Agent pid {pid} 
+This should return a `Agent pid {pid} `
 
-Check that you it is running 
+Check that it is running 
 ```
 echo $SSH_AGENT_SOCK
 ```
@@ -36,6 +36,6 @@ ssh-add -l
 
 ## References 
 
-[1] https://www.ssh.com/ssh/agent
-[2] https://stackoverflow.com/questions/22154423/how-is-ssh-auth-sock-setup-and-used-by-ssh-agent
-[3] http://blog.joncairns.com/2013/12understanding-ssh-agent-and-ssh-add/
+[1] https://www.ssh.com/ssh/agent  
+[2] https://stackoverflow.com/questions/22154423/how-is-ssh-auth-sock-setup-and-used-by-ssh-agent  
+[3] http://blog.joncairns.com/2013/12understanding-ssh-agent-and-ssh-add/  
