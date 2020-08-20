@@ -51,8 +51,12 @@ fi
 ``` 
 
 And then add an alias 
-```
-key-add="ssh-add -t 30m ~/.ssh/mykey"
+```bash
+alias key_add="eval \`ssh-agent\` > /dev/null 
+&& echo $SSH_AGENT_SOCK > /dev/null 
+&& ssh-add -t 30m ~/.ssh/id_rsa*"
+
+alias key_del="ssh-add -D"
 ```
 
 Note: Don't need `-t 30` (deletes after 30mins) but sEcUrItY.
