@@ -26,16 +26,43 @@ To add in your keys, run
 ```
 ssh-add {path} 
 
-Note: Your keys are usually contained in `~/.ssh/rsa_id*
+Note: Your keys are usually contained in `~/.ssh/id_rsa*
 ```
 Check that it's been successfully added with 
 ```
 ssh-add -l
 ```
 
+## Persistant ssh-agent identities 
+
+I am using WSL so everytime I restart the computer, I have to read the identities.  
+
+Whilst this is good security practice [4], it's quite annoying. Although this isn't persistent, it's better than nothing. 
+
+Add this to `~/.bashrc` 
+```shell
+if [ -z "$(pgrep ssh-agent)" ]; then
+   rm -rf /tmp/ssh-*
+   eval $(ssh-agent -s) > /dev/null
+else
+   export SSH_AGENT_PID=$(pgrep ssh-agent)
+   export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
+fi
+``` 
+
+And then add an alias 
+```
+key-add="ssh-add -t 30m ~/.ssh/mykey"
+```
+
+Note: Don't need `-t 30` (deletes after 30mins) but sEcUrItY.
+
+See [5]
 
 ## References 
 
 [1] https://www.ssh.com/ssh/agent  
 [2] https://stackoverflow.com/questions/22154423/how-is-ssh-auth-sock-setup-and-used-by-ssh-agent  
 [3] http://blog.joncairns.com/2013/12understanding-ssh-agent-and-ssh-add/  
+[4] https://github.com/NetSPI/sshkey-grab  
+[5] https://www.scivision.dev/ssh-agent-windows-linux/
